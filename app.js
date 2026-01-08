@@ -1,5 +1,5 @@
 // 1) PASTE YOUR GOOGLE SHEET PUBLISHED CSV URL HERE
-const SHEET_CSV_URL = "PASTE_YOUR_PUBLISHED_CSV_URL_HERE";
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1rzfXG0rT72yxstOE8V6DDC6NCdGpQGlZN6SV_eA5pT0/export?format=csv&gid=0";
 
 const elQ = document.getElementById("q");
 const elGrid = document.getElementById("grid");

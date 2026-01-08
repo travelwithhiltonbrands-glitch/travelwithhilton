@@ -1,61 +1,336 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Travel With Hilton</title>
-  <meta name="description" content="Search hotel room videos by name, location, and brand." />
-  <link rel="stylesheet" href="styles.css" />
-</head>
+:root{
+  /* Primary palette */
+  --navy:#002F61;
+  --sand:#F0E9E6;
+  --black:#000000;
+  --white:#ffffff;
 
-<body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="logo" href="#" id="homeLink" aria-label="Home">
-        <img src="assets/logo.jpg" alt="Travel With Hilton logo" />
-      </a>
+  /* Neutrals */
+  --bg: var(--sand);
+  --fg: #0b1220;
+  --muted:#667085;
+  --line: rgba(0,0,0,.10);
 
-      <div class="search-wrap">
-        <input id="q" class="search" type="search"
-          placeholder="Search hotel name, city, tags…"
-          autocomplete="off" />
-        <button id="clearSearch" class="iconbtn" title="Clear search" aria-label="Clear search">×</button>
-      </div>
+  --card: var(--white);
+  --shadow: 0 1px 2px rgba(16,24,40,.06), 0 8px 24px rgba(16,24,40,.10);
+  --radius: 18px;
+  --radius2: 22px;
+}
 
-      <div class="top-actions">
-        <button id="resetAll" class="btn">Reset</button>
-      </div>
-    </div>
-  </header>
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
 
-  <main class="layout">
-    <aside class="sidebar">
-      <div class="panel">
-        <div class="panel-title">Active filters</div>
-        <div id="activeFilters" class="chips muted">None</div>
-      </div>
+/* Topbar */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(240,233,230,.82); /* sand w/ translucency */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner{
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 12px 18px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
 
-      <div class="panel">
-        <div class="panel-title">Brands</div>
-        <div id="brandList" class="list"></div>
-      </div>
+/* Logo */
+.logo{
+  display:flex;
+  align-items:center;
+  text-decoration:none;
+}
+.logo img{
+  height: 44px;
+  width: auto;
+  display:block;
+}
 
-      <div class="panel">
-        <div class="panel-title">Location</div>
+/* Search */
+.search-wrap{
+  position: relative;
+  display:flex;
+  align-items:center;
+}
+.search{
+  width: 100%;
+  padding: 12px 44px 12px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.16);
+  background: var(--white);
+  font-size: 15px;
+  outline: none;
+}
+.search:focus{
+  border-color: rgba(0,47,97,.35);
+  box-shadow: 0 0 0 4px rgba(0,47,97,.12);
+}
+.iconbtn{
+  position:absolute;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.14);
+  background: var(--white);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--muted);
+}
+.iconbtn:hover{ color: var(--black); }
 
-        <div class="stack">
-          <div class="stack-title">Countries</div>
-          <div id="countryList" class="list"></div>
-        </div>
+/* Buttons */
+.btn{
+  border: 1px solid rgba(0,0,0,.14);
+  background: var(--white);
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.btn:hover{
+  border-color: rgba(0,47,97,.25);
+  box-shadow: 0 1px 0 rgba(16,24,40,.04);
+}
 
-        <div class="stack">
-          <div class="stack-title">States / Regions</div>
-          <div id="stateList" class="list muted">Select a country</div>
-        </div>
-      </div>
-    </aside>
+/* Layout */
+.layout{
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+}
+.sidebar{
+  position: sticky;
+  top: 78px;
+  align-self: start;
+  display: grid;
+  gap: 12px;
+}
+.content{ min-width: 0; }
 
-    <section class="content">
-      <div class="content-head">
-        <div id="status" class="status">Loading videos…</div>
-        <div class="hint">Tip: click br
+/* Panels */
+.panel{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius2);
+  padding: 14px;
+  box-shadow: 0 1px 0 rgba(16,24,40,.02);
+}
+.panel-title{
+  font-weight: 720;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.stack{ margin-top: 14px; }
+.stack-title{
+  font-weight: 650;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+/* Lists */
+.list{ display: grid; gap: 6px; }
+
+.item{
+  width: 100%;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+  cursor:pointer;
+  font-size: 14px;
+}
+.item:hover{ border-color: rgba(0,47,97,.18); }
+.item.active{
+  border-color: rgba(0,47,97,.28);
+  background: rgba(0,47,97,.06);
+}
+.count{ color: var(--muted); font-size: 12px; }
+.muted{ color: var(--muted); }
+
+/* Filter chips */
+.chips{ display:flex; flex-wrap: wrap; gap: 8px; }
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--fg);
+}
+.chip button{
+  border:none;
+  background: transparent;
+  cursor:pointer;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
+}
+.chip button:hover{ color: var(--black); }
+
+/* Content head */
+.content-head{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.status{ color: rgba(0,0,0,.65); }
+.hint{ color: rgba(0,0,0,.55); font-size: 13px; }
+
+/* --- IG Explore-style grid --- */
+.grid{
+  display:grid;
+  gap: 12px;
+}
+
+/* 5 columns on large screens */
+@media (min-width: 1280px){
+  .grid{ grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
+/* 4 columns */
+@media (min-width: 1024px) and (max-width: 1279px){
+  .grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* 3 columns */
+@media (min-width: 720px) and (max-width: 1023px){
+  .grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* 2 columns */
+@media (max-width: 719px){
+  .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Card: vertical tile with overlay */
+.card{
+  position: relative;
+  border-radius: var(--radius2);
+  overflow:hidden;
+  background: #fff;
+  cursor:pointer;
+  border: 1px solid var(--line);
+  transition: transform .06s ease;
+}
+.card:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: rgba(0,47,97,.20);
+}
+
+/* Vertical 9:16 tile */
+.thumb{
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background: #eaeaea;
+  object-fit: cover;
+  display:block;
+}
+
+/* Readability gradient overlay */
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(to top, rgba(0,0,0,.60), rgba(0,0,0,0) 55%);
+  pointer-events:none;
+}
+
+/* Overlay text */
+.cardBody{
+  position:absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  padding: 0;
+  color: var(--white);
+  text-shadow: 0 1px 12px rgba(0,0,0,.55);
+  z-index: 1;
+}
+.cardTitle{
+  font-weight: 800;
+  margin: 0 0 4px;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+.cardMeta{
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: rgba(255,255,255,.92);
+}
+.badges{ display:flex; flex-wrap:wrap; gap: 6px; }
+.badge{
+  font-size: 11px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(0,0,0,.35);
+  color: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+}
+
+/* Modal */
+.modal{
+  width: min(980px, 94vw);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 14px;
+  background:#fff;
+  color: var(--fg);
+}
+.modal::backdrop{ background: rgba(0,0,0,.45); }
+.modal-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.mTitle{ font-size: 18px; font-weight: 900; letter-spacing: -0.01em; }
+.mMeta{ color: rgba(0,0,0,.60); font-size: 13px; margin-top: 4px; }
+.mBody{ margin-top: 12px; }
+.mLinks{ margin-top: 12px; display:flex; flex-wrap:wrap; gap:10px; }
+a.link{
+  color: var(--navy);
+  text-decoration:none;
+  border: 1px solid rgba(0,47,97,.22);
+  padding: 10px 12px;
+  border-radius: 999px;
+  background:#fff;
+}
+a.link:hover{ box-shadow: 0 1px 0 rgba(16,24,40,.04); }
+
+/* Mobile */
+@media (max-width: 980px){
+  .topbar-inner{ grid-template-columns: 1fr; }
+  .layout{ grid-template-columns: 1fr; }
+  .sidebar{ position: static; top:auto; }
+  .logo img{ height: 40px; }
+}

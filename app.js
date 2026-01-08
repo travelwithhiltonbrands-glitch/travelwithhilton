@@ -108,4 +108,4 @@ function render(list) {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      ${img ? `<img class="thumb" src="${img}" alt="">` : `<div class="thumb"></div
+      ${img ? `<img class="thumb" loading="lazy" src="${img}" alt="">` : `<div class="thumb"></div

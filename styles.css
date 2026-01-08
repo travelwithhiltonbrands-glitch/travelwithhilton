@@ -1,146 +1,61 @@
-:root {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Travel With Hilton</title>
+  <meta name="description" content="Search hotel room videos by name, location, and brand." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-body {
-  margin: 0;
-  background: #0b0c10;
-  color: #f5f5f5;
-}
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="logo" href="#" id="homeLink" aria-label="Home">
+        <img src="assets/logo.jpg" alt="Travel With Hilton logo" />
+      </a>
 
-.wrap {
-  max-width: 1050px;
-  margin: 0 auto;
-  padding: 20px;
-}
+      <div class="search-wrap">
+        <input id="q" class="search" type="search"
+          placeholder="Search hotel name, city, tags…"
+          autocomplete="off" />
+        <button id="clearSearch" class="iconbtn" title="Clear search" aria-label="Clear search">×</button>
+      </div>
 
-h1 {
-  margin: 0 0 6px;
-  font-size: 26px;
-}
+      <div class="top-actions">
+        <button id="resetAll" class="btn">Reset</button>
+      </div>
+    </div>
+  </header>
 
-.sub {
-  margin: 0 0 14px;
-  color: #b7b7b7;
-}
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="panel">
+        <div class="panel-title">Active filters</div>
+        <div id="activeFilters" class="chips muted">None</div>
+      </div>
 
-.search {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1px solid #2a2c33;
-  background: #12131a;
-  color: #fff;
-  font-size: 16px;
-}
+      <div class="panel">
+        <div class="panel-title">Brands</div>
+        <div id="brandList" class="list"></div>
+      </div>
 
-.status {
-  margin-top: 12px;
-  color: #b7b7b7;
-}
+      <div class="panel">
+        <div class="panel-title">Location</div>
 
-.grid {
-  margin-top: 18px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 14px;
-}
+        <div class="stack">
+          <div class="stack-title">Countries</div>
+          <div id="countryList" class="list"></div>
+        </div>
 
-.card {
-  background: #12131a;
-  border: 1px solid #2a2c33;
-  border-radius: 16px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform .06s ease;
-}
+        <div class="stack">
+          <div class="stack-title">States / Regions</div>
+          <div id="stateList" class="list muted">Select a country</div>
+        </div>
+      </div>
+    </aside>
 
-.card:hover {
-  transform: translateY(-2px);
-}
-
-.thumb {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #0f1117;
-  object-fit: cover;
-  display: block;
-}
-
-.cardBody {
-  padding: 12px;
-}
-
-.cardTitle {
-  font-weight: 650;
-  margin: 0 0 6px;
-}
-
-.cardMeta {
-  margin: 0;
-  color: #b7b7b7;
-  font-size: 14px;
-}
-
-.modal {
-  width: min(960px, 92vw);
-  border: 1px solid #2a2c33;
-  border-radius: 18px;
-  padding: 14px;
-  background: #0f1117;
-  color: #fff;
-}
-
-.modal::backdrop {
-  background: rgba(0, 0, 0, .6);
-}
-
-.modal-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.mTitle {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.mMeta {
-  color: #b7b7b7;
-  font-size: 14px;
-}
-
-.mBody {
-  margin-top: 12px;
-}
-
-.mLinks {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.btn {
-  border: 1px solid #2a2c33;
-  background: #12131a;
-  color: #fff;
-  padding: 10px 12px;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-a.link {
-  color: #9bd0ff;
-  text-decoration: none;
-  border: 1px solid #2a2c33;
-  padding: 8px 10px;
-  border-radius: 12px;
-  background: #12131a;
-}
-
-a.link:hover {
-  text-decoration: underline;
-}
+    <section class="content">
+      <div class="content-head">
+        <div id="status" class="status">Loading videos…</div>
+        <div class="hint">Tip: click br

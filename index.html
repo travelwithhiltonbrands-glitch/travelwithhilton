@@ -1,4 +1,62 @@
-<div class="profile">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Travel With Hilton</title>
+  <meta name="description" content="Search hotel room videos by name, location, and brand." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="logo" href="#" id="homeLink" aria-label="Home">
+        <img src="assets/img_7777.jpg" alt="Travel With Hilton logo" />
+      </a>
+
+      <div class="search-wrap">
+        <input id="q" class="search" type="search"
+          placeholder="Search hotel name, city, tags…"
+          autocomplete="off" />
+        <button id="clearSearch" class="iconbtn" title="Clear search" aria-label="Clear search">×</button>
+      </div>
+
+      <div class="top-actions">
+        <button id="resetAll" class="btn">Reset</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="panel">
+        <div class="panel-title">Active filters</div>
+        <div id="activeFilters" class="chips muted">None</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Brands</div>
+        <div id="brandList" class="list"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Location</div>
+
+        <div class="stack">
+          <div class="stack-title">Countries</div>
+          <div id="countryList" class="list"></div>
+        </div>
+
+        <div class="stack">
+          <div class="stack-title">States / Regions</div>
+          <div id="stateList" class="list muted">Select a country</div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="profile">
   <div class="profile-left">
     <div class="avatar">
       <img src="/assets/img_7777.jpg" alt="Travel With Hilton" />
@@ -11,7 +69,7 @@
       <div class="p-links">
         <a class="p-btn" href="https://www.tiktok.com/@travelwithhilton" target="_blank" rel="noopener">TikTok</a>
         <a class="p-btn" href="YOUR_YOUTUBE_CHANNEL_URL" target="_blank" rel="noopener">YouTube</a>
-        <a class="p-btn" href="YOUR_INSTAGRAM_URL" target="_blank" rel="noopener">Instagram</a>
+        <a class="p-btn" href="https://www.instagram.com/travelwithhilton/" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
   </div>
@@ -31,3 +89,28 @@
     </div>
   </div>
 </div>
+
+      <div class="content-head">
+        <div id="status" class="status">Loading videos…</div>
+        <div class="hint">Tip: click brand/country/state to filter</div>
+      </div>
+
+      <div id="grid" class="grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <dialog id="modal" class="modal">
+    <div class="modal-head">
+      <div class="modal-titlewrap">
+        <div id="mTitle" class="mTitle"></div>
+        <div id="mMeta" class="mMeta"></div>
+      </div>
+      <button id="mClose" class="btn">Close</button>
+    </div>
+    <div id="mBody" class="mBody"></div>
+    <div id="mLinks" class="mLinks"></div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

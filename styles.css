@@ -107,8 +107,8 @@ body{
 
 /* Layout */
 .layout{
-  max-width: 1300px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   padding: 18px;
   display: grid;
   grid-template-columns: 320px 1fr;
@@ -121,7 +121,9 @@ body{
   display: grid;
   gap: 12px;
 }
-.content{ min-width: 0; }
+.content{ min-width: 0;
+        padding-right: 18px;
+        }
 
 /* Panels */
 .panel{
@@ -207,7 +209,7 @@ body{
 /* --- IG Explore-style grid --- */
 .grid{
   display:grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 /* 5 columns on large screens */

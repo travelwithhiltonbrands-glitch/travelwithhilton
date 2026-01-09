@@ -101,11 +101,13 @@ function render(list) {
 
   elStatus.textContent = `${list.length} video${list.length === 1 ? "" : "s"}`;
 
-  for (const r of list) {
+  for (const r of list) { 
+    const hasVideo = !!getYouTubeId(r.youtube_url || "");
     const img = r.thumbnail_url || defaultThumb(r);
     const meta = [r.city, r.state_region, r.country].filter(Boolean).join(", ");
 
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
+      ${hasVideo ? `<div class="playBadge">▶︎</div>` : ``}
       ${img ? `<img class="thumb" loading="lazy" src="${img}" alt="">` : `<div class="thumb"></div

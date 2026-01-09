@@ -395,3 +395,17 @@ a.link:hover{ box-shadow: 0 1px 0 rgba(16,24,40,.04); }
   .stat{ text-align:left; }
 }
 
+.playBadge{
+  position:absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  font-size: 12px;
+  color: rgba(255,255,255,.92);
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.25);
+  padding: 6px 8px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+
